@@ -1,7 +1,6 @@
 package com.example.supplychain;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 //import javafx.scene.control.Button;
@@ -11,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class supplyChain extends Application {
     Button loginButton;
     private static final int width=700,height=600, upperline=50;
     private Pane headerBar(){                  // search panel(header bar) inside main panel
