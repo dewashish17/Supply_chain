@@ -1,6 +1,8 @@
 package com.example.supplychain;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 //import javafx.scene.control.Button;
@@ -13,6 +15,11 @@ import java.io.IOException;
 public class supplyChain extends Application {
     Button loginButton;
     private static final int width=700,height=600, upperline=50;
+
+    //calling another java file to store table pane in main pane
+    ProductDetails productDetails =new ProductDetails();    // table Pane
+
+
     private Pane headerBar(){                  // search panel(header bar) inside main panel
         Pane topPane=new Pane();
         topPane.setPrefSize(width,upperline-10);
@@ -29,9 +36,17 @@ public class supplyChain extends Application {
         //searchButton.setTranslateY(10);
 
         //Login Button
-        Button loginButton =new Button("Login");               // creating login button inside Pane
+        loginButton =new Button("Login");               // creating login button inside Pane
         loginButton.setTranslateX(600);
-        //loginButton.setTranslateY(10);
+        //adding action listener to loginButton
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.out.println("clicked");
+            }
+        });
+
+
 
         // adding controls into topPane
         topPane.getChildren().addAll(searchText,searchButton,loginButton); // adding login searchfield, search are adding to topPane panel
@@ -44,7 +59,9 @@ public class supplyChain extends Application {
     {
         Pane root=new Pane();
         root.setPrefSize(width,height+upperline);
-        root.getChildren().add(headerBar());
+
+        root.getChildren().addAll(headerBar(), productDetails.getAllProducts());
+
         return root;
 
     }
