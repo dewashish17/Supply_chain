@@ -50,44 +50,33 @@ public class Product {
     // and return this list to productDetail.java table.Setitem(obeservalelist) as a tableview
     // and further return the tableview pane into supply chain
     public static ObservableList<Product> getAllProducts(){
-        DatabaseConnection dbCon=new DatabaseConnection();
-        ObservableList<Product> data= FXCollections.observableArrayList();
+
         String selectProducts="SELECT * FROM PRODUCT";
-        try{
 
-            ResultSet rs=dbCon.getQueryTable(selectProducts);
-            while(rs.next()){
-
-                data.add(new Product(rs.getInt("pid"),rs.getString("name"),rs.getDouble("price")
-                ,rs.getInt("quantity")));
-
-                System.out.println(rs.getInt("pid")+" "+rs.getString("name")+" "+
-                        rs.getDouble("price")+" "+ rs.getInt("quantity"));
-            }
-            rs.close();
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        return data;
+        return getProductList(selectProducts);
     }
 
 
     // to make search button functionable
     public static ObservableList<Product> getProductsByName(String productName){
+
+        String selectProducts=String.format("SELECT * FROM product WHERE name like '%%%s%%'",productName.toLowerCase());
+        return getProductList(selectProducts);
+
+    }
+    private static ObservableList<Product> getProductList(String query){
         DatabaseConnection dbCon=new DatabaseConnection();
         ObservableList<Product> data= FXCollections.observableArrayList();
-        String selectProducts=String.format("SELECT * FROM product WHERE name like '%%s%'",productName.toLowerCase());
         try{
 
-            ResultSet rs=dbCon.getQueryTable(selectProducts);
+            ResultSet rs=dbCon.getQueryTable(query);
             while(rs.next()){
 
                 data.add(new Product(rs.getInt("pid"),rs.getString("name"),rs.getDouble("price")
                         ,rs.getInt("quantity")));
 
-                System.out.println(rs.getInt("pid")+" "+rs.getString("name")+" "+
-                        rs.getDouble("price")+" "+ rs.getInt("quantity"));
+//                System.out.println(rs.getInt("pid")+" "+rs.getString("name")+" "+
+//                        rs.getDouble("price")+" "+ rs.getInt("quantity"));
             }
             rs.close();
         }catch (Exception e)
