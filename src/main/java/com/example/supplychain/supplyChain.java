@@ -70,7 +70,7 @@ public class supplyChain extends Application {
 
     private GridPane loginPage(){   // for login page
         Label emailLabel=new Label("E-mail :");
-        Label passLabel=new Label("Password :")
+        Label passLabel=new Label("Password :");
         TextField emailText=new TextField();
         emailText.setPromptText("Please enter email here");
         TextField passField =new TextField();
