@@ -3,6 +3,7 @@ package com.example.supplychain;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 //import javafx.scene.control.Button;
@@ -54,7 +55,9 @@ public class supplyChain extends Application {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("clicked");
+                bodyPane.getChildren().clear();
+                bodyPane.getChildren().add(loginPage());
+
             }
         });
 
@@ -73,13 +76,39 @@ public class supplyChain extends Application {
         Label passLabel=new Label("Password :");
         TextField emailText=new TextField();
         emailText.setPromptText("Please enter email here");
-        TextField passField =new TextField();
-        passField.setPromptText("Please enter password here");
+        PasswordField passwordText=new PasswordField();
+        passwordText.setPromptText("please enter password");
+//        TextField passField =new TextField();
+//        passField.setPromptText("Please enter password here");
         Button localLoginButton=new Button("Login");
         Button clearButton=new Button("Clear");
 
+        // setting action on clear Button
+        clearButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                emailText.setText("");
+
+                passwordText.setText("");
+            }
+        });
+
         GridPane gridPane=new GridPane();
 
+        // adding control to the gridpane
+        gridPane.setMinSize(bodyPane.getWidth(),bodyPane.getHeight());
+        gridPane.setAlignment(Pos.CENTER);
+
+        //setting aligment between button
+        gridPane.setVgap(10);   // vertical gap
+        gridPane.setHgap(10);  // horizontal gap
+
+        gridPane.add(emailLabel,0,0);
+        gridPane.add(emailText, 1 ,0);
+        gridPane.add(passLabel,0,1);
+        gridPane.add(passwordText,1,1);
+        gridPane.add(localLoginButton,0,2);
+        gridPane.add(clearButton,1,2);
 
 
         return gridPane;
